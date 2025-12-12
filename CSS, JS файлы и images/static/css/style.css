@@ -1,0 +1,2316 @@
+/* Основные цвета */
+:root {
+    --primary: #e91e63;
+    --secondary: #f06292;
+    --accent: #f8bbd9;
+    --light: #fce4ec;
+    --dark: #880e4f;
+    --success: #4caf50;
+    --danger: #f44336;
+    --warning: #ff9800;
+    --info: #17a2b8;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffe6f2 !important;
+    min-height: 100vh;
+    transition: var(--transition);
+    background-attachment: fixed;
+}
+
+/* ===== СТРАНИЦА ВХОДА И РЕГИСТРАЦИИ ===== */
+.login-page {
+    background: linear-gradient(135deg, #e91e63 0%, #f06292 50%, #f8bbd9 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.login-container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    padding: 3rem;
+    width: 100%;
+    max-width: 450px;
+}
+
+.store-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-align: center;
+    background: linear-gradient(135deg, #e91e63 0%, #f06292 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.store-subtitle {
+    text-align: center;
+    color: #6c757d;
+    margin-bottom: 2.5rem;
+    font-size: 1.1rem;
+}
+
+/* Формы */
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon .form-control {
+    padding-left: 45px !important;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    height: 50px;
+    transition: var(--transition);
+    font-size: 1rem;
+}
+
+.input-with-icon .form-control:focus {
+    border-color: #e91e63;
+    box-shadow: 0 0 0 0.2rem rgba(233, 30, 99, 0.25);
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    font-size: 1.1rem;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Кнопки */
+.login-btn {
+    background: linear-gradient(135deg, #e91e63 0%, #f06292 100%);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    width: 100%;
+    height: 50px;
+    transition: var(--transition);
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+.login-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+}
+
+.login-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border: none;
+    border-radius: 25px;
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(233, 30, 99, 0.3);
+}
+
+.btn-outline-primary {
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    border-radius: 25px;
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-outline-primary:hover {
+    background: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* Ссылки */
+.register-link {
+    text-align: center;
+    margin-top: 2rem;
+    color: #2196f3;
+    text-decoration: none;
+    display: block;
+    transition: color 0.3s ease;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.register-link:hover {
+    color: #1976d2;
+    text-decoration: underline;
+}
+
+a {
+    color: #e91e63;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #d81b60;
+    text-decoration: underline;
+}
+
+/* Алерты */
+.alert {
+    border-radius: 10px;
+    border: none;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.alert-danger {
+    background: #fde8e8;
+    color: #c53030;
+}
+
+.alert-success {
+    background: #f0fff4;
+    color: #2d7d32;
+}
+
+/* ===== ОСНОВНЫЕ СТИЛИ ДЛЯ САЙТА ===== */
+
+/* Навигация */
+.navbar {
+    background: linear-gradient(135deg, #e91e63 0%, #f06292 100%);
+    box-shadow: var(--shadow);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: white !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.nav-link {
+    color: white !important;
+    font-weight: 500;
+    transition: var(--transition);
+    margin: 0 0.5rem;
+    padding: 0.5rem 1rem !important;
+    border-radius: 5px;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--accent) !important;
+    transform: translateY(-2px);
+}
+
+.navbar-nav.ms-auto {
+    margin-left: auto !important;
+}
+
+.cart-badge {
+    background: linear-gradient(135deg, var(--danger) 0%, #c82333 100%);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+
+/* Карточки книг */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    align-items: stretch;
+}
+
+.grid-item {
+    display: flex;
+}
+
+.book-card-fixed {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 500px;
+    max-height: none;
+    overflow: visible;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+}
+
+.book-card-fixed:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    background-color: white;
+    padding: 10px;
+}
+
+.book-card-fixed:hover .book-cover {
+    transform: scale(1.05);
+}
+
+/* Тело карточки */
+.book-card-fixed .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.book-title {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    height: 2.6em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-bottom: 0.5rem;
+}
+
+.book-author {
+    font-size: 0.9rem;
+    height: 1.4em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 0.5rem;
+}
+
+.book-description {
+    font-size: 0.85rem;
+    color: #666;
+    flex-grow: 1;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-height: 1.4;
+    height: 4.2em;
+}
+
+.book-price-section-fixed {
+    margin-top: auto !important;
+    padding-top: 1rem !important;
+    border-top: 1px solid #eee !important;
+}
+
+.book-price-fixed {
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
+    color: #e91e63 !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.book-buttons-fixed {
+    display: flex !important;
+    gap: 0.5rem !important;
+}
+
+/* ===== ЕДИНЫЕ СТИЛИ ДЛЯ КАРТОЧЕК КНИГ ===== */
+
+/* Общий контейнер для карточек книг */
+.book-card-uniform {
+    width: 100%;
+    height: 100%;
+    min-height: 420px; /* Уменьшили с 480px */
+    max-height: 500px; /* Добавили ограничение высоты */
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    overflow: hidden; /* Скрываем переполнение */
+}
+
+.book-card-uniform:hover {
+    transform: translateY(-3px); /* Уменьшили подъем */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+}
+
+/* Контейнер изображения */
+.book-image-container {
+    width: 100%;
+    height: 220px !important;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+}
+
+.book-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s ease;
+    padding: 10px;
+}
+
+.book-card-uniform:hover .book-image {
+    transform: scale(1.03);
+}
+
+/* Тело карточки */
+.card-body-flex {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem; /* Уменьшили padding */
+}
+
+/* Текст в карточке */
+.book-title {
+    font-size: 0.95rem !important; /* Уменьшили шрифт */
+    font-weight: 600;
+    line-height: 1.3;
+    height: 2.4em; /* Уменьшили высоту */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-bottom: 0.25rem;
+}
+
+.book-author {
+    font-size: 0.85rem !important; /* Уменьшили шрифт */
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+    height: 1.2em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.book-description {
+    font-size: 0.8rem !important; /* Уменьшили шрифт */
+    color: #666;
+    line-height: 1.3; /* Уменьшили межстрочный интервал */
+    flex-grow: 1;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Уменьшили до 3 строк */
+    -webkit-box-orient: vertical;
+}
+
+.book-price {
+    font-size: 1.1rem !important; /* Уменьшили шрифт */
+    font-weight: 700;
+    color: #e91e63;
+    margin-bottom: 0.5rem;
+}
+
+/* Кнопки в карточке */
+.book-card-uniform .btn-sm {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.85rem !important;
+}
+
+/* Специфичные размеры для разных страниц */
+
+/* Главная страница (dashboard) */
+.dashboard-page .book-image-container {
+    height: 200px !important; /* Еще меньше для главной */
+}
+
+.dashboard-page .book-card-uniform {
+    min-height: 400px !important; /* Уменьшили минимальную высоту */
+    max-height: 400px !important;
+}
+
+.dashboard-page .card-body-flex {
+    padding: 0.75rem !important;
+}
+
+/* Каталог книг (books page) */
+.books-page .book-image-container {
+    height: 220px !important;
+}
+
+.books-page .book-card-uniform {
+    min-height: 420px !important;
+    max-height: 420px !important;
+}
+
+.books-page .card-body-flex {
+    padding: 0.75rem !important;
+}
+
+.books-page .book-price {
+    font-size: 1.1rem !important;
+}
+
+/* Детали книги (отдельная страница) */
+.book-details-page .main-image-container {
+    height: 350px !important; /* Уменьшили с 450px */
+    padding: 15px !important; /* Уменьшили padding */
+}
+
+.book-details-page .main-image {
+    max-width: 250px !important; /* Уменьшили максимальную ширину */
+    max-height: 350px !important; /* Уменьшили максимальную высоту */
+}
+
+/* Уменьшаем текст в деталях книги */
+.book-details-page .book-description-text {
+    font-size: 1rem !important; /* Уменьшили шрифт */
+    line-height: 1.6; /* Уменьшили межстрочный интервал */
+}
+
+/* Мета-информация в деталях книги */
+.book-details-page .book-meta {
+    padding: 15px !important; /* Уменьшили padding */
+    margin-top: 15px !important;
+}
+
+.book-details-page .meta-item {
+    padding: 8px 0 !important; /* Уменьшили padding */
+    font-size: 0.9rem !important; /* Уменьшили шрифт */
+}
+
+/* Сетка для каталога - уменьшаем отступы */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important; /* Уменьшили минимальную ширину */
+    gap: 15px !important; /* Уменьшили отступы */
+    align-items: stretch;
+}
+
+/* Медиа-запросы для мобильных */
+@media (max-width: 768px) {
+    .book-card-uniform {
+        min-height: 380px !important;
+        max-height: 380px !important;
+    }
+
+    .book-image-container {
+        height: 180px !important;
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+        gap: 12px !important;
+    }
+
+    .book-details-page .main-image-container {
+        height: 280px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .book-card-uniform {
+        min-height: 360px !important;
+        max-height: 360px !important;
+    }
+
+    .book-image-container {
+        height: 160px !important;
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+        gap: 10px !important;
+    }
+
+    .book-details-page .main-image-container {
+        height: 220px !important;
+    }
+}
+
+/* Карточки цен на странице деталей */
+.price-card {
+    height: 100%;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.price-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.price-card-digital {
+    border-color: #28a745;
+}
+
+.price-card-digital:hover {
+    border-color: #218838;
+}
+
+.price-card-printed {
+    border-color: #007bff;
+}
+
+.price-card-printed:hover {
+    border-color: #0056b3;
+}
+
+/* Описание на странице деталей */
+.book-details-page .book-description-text {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    text-align: justify;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #e91e63;
+}
+
+/* Мета-информация */
+.book-meta {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.meta-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.meta-item:last-child {
+    border-bottom: none;
+}
+
+/* Сетка для каталога */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    align-items: stretch;
+}
+
+/* Корзина */
+.cart-item {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.cart-item:hover {
+    transform: translateX(5px);
+}
+
+.cart-total {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 2rem;
+}
+
+/* Профиль */
+.profile-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+/* МОДЕЛЬНЫЕ ОКНА */
+.modal-content {
+    border-radius: 10px;
+    border: 1px solid #f8bbd9;
+    box-shadow: 0 10px 25px rgba(233, 30, 99, 0.15);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+    border-bottom: 1px solid #f8bbd9;
+    border-radius: 10px 10px 0 0;
+    padding: 1.25rem 1.5rem;
+}
+
+.modal-body {
+    padding: 1.5rem;
+    background-color: #fff;
+}
+
+.modal-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #f8bbd9;
+    border-radius: 0 0 10px 10px;
+    padding: 1rem 1.5rem;
+}
+
+/* Стили для алертов внутри модальных окон */
+.modal-body .alert {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    margin-bottom: 1rem;
+}
+
+.modal-body .alert-danger {
+    background-color: #fde8e8;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.modal-body .alert-warning {
+    background-color: #fff3cd;
+    border-color: #ffeaa7;
+    color: #856404;
+}
+
+.alert-danger, .alert-warning {
+    border-width: 1px !important;
+    border-style: solid !important;
+}
+
+.alert {
+    background-image: none !important;
+}
+
+/* Специфичные стили для заголовков алертов */
+.modal-body .alert h6,
+.modal-body .alert strong {
+    margin-bottom: 0;
+    font-weight: 600;
+}
+
+.alert:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Отображение текста в модальном окне */
+#bookTitle {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+/* ФУТЕР */
+footer {
+    margin-top: auto;
+}
+
+footer a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #f8bbd9 !important;
+    text-decoration: underline;
+}
+
+/* ===== СТИЛИ АДМИН-ПАНЕЛИ ===== */
+.admin-sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, #343a40 0%, #212529 100%);
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.admin-content {
+    margin-left: 250px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.sidebar-item {
+    color: #adb5bd;
+    padding: 12px 20px;
+    display: block;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.sidebar-item:hover, .sidebar-item.active {
+    background: rgba(255, 255, 255, 0.1);
+    border-left: 3px solid #e91e63;
+    color: white;
+}
+
+.sidebar-item i {
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar-header {
+    border-bottom: 1px solid #495057;
+    margin-bottom: 20px;
+}
+
+.admin-content .card {
+    border: none;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+}
+
+.admin-content .card-header {
+    background: white;
+    border-bottom: 1px solid #eee;
+    font-weight: 600;
+}
+
+.admin-content .table th {
+    border-top: none;
+    font-weight: 600;
+    color: #495057;
+}
+
+.admin-content .table td {
+    vertical-align: middle;
+}
+
+.btn-group-sm .btn {
+    font-size: 0.8rem;
+}
+
+.stat-card {
+    transition: transform 0.3s;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.stat-card .card-body {
+    padding: 1.5rem;
+}
+
+/* Адаптивность для админ-панели */
+@media (max-width: 768px) {
+    .admin-sidebar {
+        width: 70px;
+        overflow: hidden;
+    }
+
+    .admin-sidebar .sidebar-item span:not(.fa) {
+        display: none;
+    }
+
+    .admin-content {
+        margin-left: 70px;
+    }
+
+    .sidebar-item {
+        text-align: center;
+        padding: 15px 5px;
+    }
+
+    .sidebar-item i {
+        width: auto;
+        font-size: 1.2rem;
+    }
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 768px) {
+    .store-title {
+        font-size: 2.2rem;
+    }
+
+    .book-card-fixed {
+        margin-bottom: 1.5rem;
+        min-height: 480px;
+        max-height: 480px;
+    }
+
+    .navbar-brand {
+        font-size: 1.4rem;
+    }
+
+    .login-container {
+        padding: 2rem;
+        margin: 1rem;
+    }
+
+    .login-page {
+        padding: 1rem;
+    }
+
+    .image-container {
+        height: 180px;
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 15px;
+    }
+
+    .navbar-nav {
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    .navbar-nav .nav-item {
+        margin-bottom: 0.5rem;
+    }
+
+    .book-card-fixed .btn-group {
+        flex-direction: column;
+    }
+
+    .book-card-fixed .btn-group .btn {
+        margin-bottom: 0.25rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .store-title {
+        font-size: 1.8rem !important;
+        text-align: center;
+    }
+
+    .book-card-fixed {
+        margin-bottom: 1rem;
+        min-height: 450px;
+        max-height: 450px;
+    }
+
+    .book-card-fixed .card-body {
+        padding: 1rem;
+    }
+
+    .book-title {
+        font-size: 1.1rem;
+    }
+
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    .login-container {
+        margin: 0.5rem;
+        padding: 1.5rem;
+    }
+
+    .cart-item .row {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .cart-item img {
+        margin-bottom: 1rem;
+    }
+
+    .profile-card {
+        padding: 1rem;
+    }
+
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .dropdown-menu {
+        text-align: center;
+    }
+
+    .image-container {
+        height: 160px;
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 12px;
+    }
+}
+
+.navbar-nav .nav-link {
+    padding: 0.5rem 1rem;
+}
+
+.badge {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.btn-minus, .btn-plus {
+    width: 40px;
+}
+.cart-item-image {
+    max-height: 100px;
+    object-fit: cover;
+}
+
+/* ФУТЕР */
+/* Футер всегда внизу */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+footer {
+    flex-shrink: 0;
+    margin-top: auto !important;
+}
+
+/* Для страниц с контентом */
+.container-fluid {
+    flex: 1;
+}
+
+/* Уведомления */
+.notification-alert {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    z-index: 9999 !important;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.3s, transform 0.3s;
+    min-width: 300px;
+    max-width: 400px;
+}
+
+.notification-alert.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.welcome-banner-simple {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+    border-radius: 15px;
+}
+
+
+/* Фиолетовый фон для приветственного блока */
+/* ===== ФИОЛЕТОВЫЙ ПРИВЕТСТВЕННЫЙ БЛОК ===== */
+.welcome-banner-purple {
+    background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 50%, #6D28D9 100%);
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+    padding: 2rem 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-banner-purple::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+.welcome-banner-purple h1 {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.welcome-banner-purple .display-4 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.welcome-banner-purple .lead {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1.4rem;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+}
+
+.welcome-banner-purple p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+}
+
+.welcome-banner-purple hr {
+    border-color: rgba(255, 255, 255, 0.4);
+    opacity: 0.6;
+    border-width: 2px;
+    margin: 2rem 0;
+}
+
+/* Эффект при наведении */
+.welcome-banner-purple:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4);
+    transition: all 0.3s ease;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .welcome-banner-purple {
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    .welcome-banner-purple .display-4 {
+        font-size: 2.2rem;
+    }
+
+    .welcome-banner-purple .lead {
+        font-size: 1.2rem;
+    }
+
+    .welcome-banner-purple p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .welcome-banner-purple {
+        padding: 1.25rem;
+    }
+
+    .welcome-banner-purple .display-4 {
+        font-size: 1.8rem;
+    }
+
+    .welcome-banner-purple .lead {
+        font-size: 1.1rem;
+    }
+}
+
+/* ===== ФИОЛЕТОВЫЙ ПРИВЕТСТВЕННЫЙ БЛОК ===== */
+.welcome-banner-purple {
+    background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 50%, #6D28D9 100%);
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+}
+
+.welcome-banner-purple h1 {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-banner-purple .lead {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.welcome-banner-purple p {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.welcome-banner-purple hr {
+    border-color: rgba(255, 255, 255, 0.3);
+    opacity: 0.5;
+}
+
+.notification-alert {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    z-index: 9999 !important;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.3s, transform 0.3s;
+    min-width: 300px;
+    max-width: 400px;
+}
+
+.notification-alert.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.success-icon {
+    font-size: 5rem;
+    color: #28a745;
+    margin-bottom: 2rem;
+}
+.confirmation-card {
+    max-width: 600px;
+    margin: 0 auto;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+.steps-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0;
+    position: relative;
+}
+.steps-container:before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 50px;
+    right: 50px;
+    height: 2px;
+    background: #e9ecef;
+    z-index: 1;
+}
+.step {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+.step-icon {
+    width: 40px;
+    height: 40px;
+    background: #28a745;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+}
+.step.completed .step-icon {
+    background: #28a745;
+}
+.step.current .step-icon {
+    background: #17a2b8;
+}
+.step-text {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+/* Анимация для обновленного текста */
+.text-updated {
+    animation: textHighlight 0.5s ease;
+    color: #28a745 !important;
+    font-weight: bold;
+}
+
+@keyframes textHighlight {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Для карточки корзины на главной */
+#cart-count-text {
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+#cart-count-text:empty:before {
+    content: 'Товаров: 0';
+    color: #6c757d;
+}
+
+.cart-item-image {
+    width: 80px;
+    height: 120px;
+    object-fit: cover;
+}
+.quantity-input {
+    width: 60px;
+    text-align: center;
+}
+.item-price-total {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #e91e63;
+}
+.item-price-unit {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+
+
+
+
+
+
+
+/* ===== ЕДИНЫЙ РАЗМЕР ИЗОБРАЖЕНИЙ ДЛЯ ВСЕХ КНИГ ===== */
+
+/* Контейнер для изображения на странице деталей */
+.book-image-wrapper {
+    width: 100%;
+    height: 400px; /* фиксированная высота */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #dee2e6;
+}
+
+/* Изображение фиксированного размера */
+.book-image-fixed-size {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    max-height: 360px;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 15px;
+}
+
+/* Цены на странице деталей */
+.price-card {
+    height: 100%;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.price-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.price-card-digital {
+    border-color: #28a745;
+}
+
+.price-card-digital:hover {
+    border-color: #218838;
+}
+
+.price-card-printed {
+    border-color: #007bff;
+}
+
+.price-card-printed:hover {
+    border-color: #0056b3;
+}
+
+/* Описание на странице деталей */
+.book-description-text {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    text-align: justify;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #e91e63;
+}
+
+/* Мета-информация */
+.book-meta-top {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.meta-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.meta-item:last-child {
+    border-bottom: none;
+}
+
+/* Адаптивность для страницы деталей */
+@media (max-width: 992px) {
+    .book-image-wrapper {
+        height: 350px;
+        padding: 15px;
+    }
+
+    .book-image-fixed-size {
+        max-height: 320px;
+        padding: 10px;
+    }
+
+    .book-description-text {
+        font-size: 1rem;
+        padding: 15px;
+    }
+
+    .book-meta-top {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .book-image-wrapper {
+        height: 300px;
+        padding: 10px;
+    }
+
+    .book-image-fixed-size {
+        max-height: 280px;
+        padding: 8px;
+    }
+
+    .col-md-4 {
+        margin-bottom: 20px;
+    }
+
+    .meta-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}
+
+@media (max-width: 576px) {
+    .book-image-wrapper {
+        height: 250px;
+    }
+
+    .book-image-fixed-size {
+        max-height: 230px;
+        padding: 5px;
+    }
+
+    .book-description-text {
+        font-size: 0.95rem;
+        padding: 10px;
+    }
+
+    .book-meta-top {
+        padding: 10px;
+    }
+}
+
+/* ===== ОДИНАКОВЫЕ РАЗМЕРЫ ДЛЯ ВСЕХ КНИГ В КАТАЛОГЕ ===== */
+
+/* Единые стили для карточек книг */
+.book-card-uniform {
+    width: 100%;
+    height: 100%;
+    min-height: 460px;
+    max-height: 520px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    overflow: hidden;
+}
+
+.book-card-uniform:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+/* Контейнер изображения */
+.book-image-container {
+    width: 100%;
+    height: 280px !important;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+}
+
+.book-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s ease;
+    padding: 15px;
+}
+
+.book-card-uniform:hover .book-image {
+    transform: scale(1.05);
+}
+
+/* Тело карточки */
+.card-body-flex {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+/* Текст в карточке */
+.book-title {
+    font-size: 1.05rem !important;
+    font-weight: 600;
+    line-height: 1.4;
+    height: 2.8em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-bottom: 0.5rem;
+}
+
+.book-author {
+    font-size: 0.95rem !important;
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+    height: 1.4em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.book-description {
+    font-size: 0.9rem !important;
+    color: #666;
+    line-height: 1.4;
+    flex-grow: 1;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.book-price {
+    font-size: 1.2rem !important;
+    font-weight: 700;
+    color: #e91e63;
+    margin-bottom: 0.75rem;
+}
+
+/* Кнопки в карточке */
+.book-card-uniform .btn-sm {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.85rem !important;
+}
+
+/* Специфичные размеры для разных страниц */
+
+/* Главная страница (dashboard) */
+.dashboard-page .book-image-container {
+    height: 200px !important;
+}
+
+.dashboard-page .book-card-uniform {
+    min-height: 400px !important;
+    max-height: 400px !important;
+}
+
+.dashboard-page .card-body-flex {
+    padding: 0.75rem !important;
+}
+
+/* Каталог книг (books page) */
+.books-page .book-image-container {
+    height: 220px !important;
+}
+
+.books-page .book-card-uniform {
+    min-height: 420px !important;
+    max-height: 420px !important;
+}
+
+.books-page .card-body-flex {
+    padding: 0.75rem !important;
+}
+
+.books-page .book-price {
+    font-size: 1.1rem !important;
+}
+
+/* Сетка для каталога - одинаковые размеры */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+    gap: 15px !important;
+    align-items: stretch;
+}
+
+/* Медиа-запросы для одинакового адаптивного поведения */
+@media (max-width: 768px) {
+    .book-card-uniform {
+        min-height: 380px !important;
+        max-height: 380px !important;
+    }
+
+    .book-image-container {
+        height: 180px !important;
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+        gap: 12px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .book-card-uniform {
+        min-height: 360px !important;
+        max-height: 360px !important;
+    }
+
+    .book-image-container {
+        height: 160px !important;
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+        gap: 10px !important;
+    }
+}
+
+/* Дополнительный класс для гарантии одинакового размера */
+.image-same-size {
+    width: 100% !important;
+    height: 220px !important;
+    min-height: 220px !important;
+    max-height: 220px !important;
+    object-fit: contain !important;
+    object-position: center !important;
+}
+
+/* Скрываем отладочную информацию */
+.debug-info {
+    display: none;
+}
+
+/* ===== ЗАКАЗЫ ===== */
+
+/* Стили для растянутого контента */
+.admin-content-full {
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+/* Заголовок с количеством заказов слева */
+.page-header-with-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.order-stats-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Контейнер для таблицы */
+.table-container-full {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    background: white;
+    margin-bottom: 2rem;
+}
+
+/* Стили для карточек заказов */
+.order-card-full {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    background: white;
+}
+
+.order-card-full:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.order-header-full {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+    border-radius: 8px 8px 0 0;
+}
+
+.order-id-full {
+    font-weight: 600;
+    color: #495057;
+    font-size: 1.1rem;
+}
+
+.order-date-full {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.order-status-full {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.status-paid {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-delivered {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.order-details-full {
+    padding: 1.5rem;
+}
+
+.customer-info-full {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+.customer-label-full {
+    font-weight: 600;
+    color: #495057;
+    min-width: 100px;
+}
+
+.book-item-full {
+    padding: 0.75rem;
+    border-bottom: 1px solid #f1f1f1;
+    transition: background-color 0.2s;
+}
+
+.book-item-full:hover {
+    background-color: #f8f9fa;
+}
+
+.book-item-full:last-child {
+    border-bottom: none;
+}
+
+.book-image-small-full {
+    width: 60px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
+
+.book-type-badge-full {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+}
+
+.book-type-digital {
+    background-color: #28a745;
+    color: white;
+}
+
+.book-type-printed {
+    background-color: #007bff;
+    color: white;
+}
+
+.delivery-info-full {
+    background-color: #e7f5ff;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+}
+
+.order-total-full {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #e91e63;
+}
+
+.empty-orders-full {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.empty-orders-full i {
+    font-size: 4rem;
+    color: #adb5bd;
+    margin-bottom: 1rem;
+}
+
+.search-highlight {
+    background-color: #fff3cd;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+/* Поисковая система */
+
+/* style.css - ДОБАВЬТЕ ЭТИ СТИЛИ */
+
+/* Стили для поиска */
+.search-highlight {
+    background-color: #fff3cd;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+/* Автодополнение */
+.autocomplete-dropdown {
+    position: absolute;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.autocomplete-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.autocomplete-item:hover {
+    background-color: #f8f9fa;
+}
+
+.autocomplete-item:last-child {
+    border-bottom: none;
+}
+
+/* Анимация поиска */
+@keyframes searchPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.searching {
+    animation: searchPulse 1s infinite;
+}
+
+/* ===== СТИЛИ ДЛЯ СТРАНИЦЫ ДЕТАЛЕЙ КНИГИ ===== */
+
+/* Контейнер для описания и деталей */
+.book-description-container {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    border-left: 5px solid #e91e63;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Заголовок раздела */
+.description-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(233, 30, 99, 0.2);
+}
+
+.description-title {
+    color: #e91e63;
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.description-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Возрастной рейтинг */
+.age-badge {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    min-width: 50px;
+    text-align: center;
+}
+
+.age-0-plus { background-color: #28a745; color: white; }
+.age-6-plus { background-color: #17a2b8; color: white; }
+.age-12-plus { background-color: #ffc107; color: black; }
+.age-16-plus { background-color: #fd7e14; color: white; }
+.age-18-plus { background-color: #dc3545; color: white; }
+
+/* Информация о страницах */
+.pages-info {
+    background: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #495057;
+    border: 1px solid #dee2e6;
+}
+
+/* Основное описание */
+.book-description-content {
+    margin-bottom: 25px;
+}
+
+.book-description-text {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    text-align: justify;
+    color: #212529;
+    margin: 0;
+}
+
+/* Сетка деталей книги */
+.book-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Элемент детали */
+.detail-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.detail-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-color: #e91e63;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #495057;
+    min-width: 100px;
+    font-size: 0.9rem;
+}
+
+.detail-value {
+    flex: 1;
+    font-size: 0.95rem;
+    color: #212529;
+    font-weight: 500;
+}
+
+/* Ссылки на категорию и жанр */
+.category-link, .genre-link {
+    color: #e91e63;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.category-link:hover, .genre-link:hover {
+    color: #d81b60;
+    background-color: rgba(233, 30, 99, 0.1);
+    text-decoration: none;
+}
+
+/* Бейджи форматов */
+.format-badge {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+    margin-right: 8px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.digital-badge {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.printed-badge {
+    background-color: #cce5ff;
+    color: #004085;
+    border: 1px solid #b8daff;
+}
+
+/* Контейнер изображения книги */
+.book-image-wrapper {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #dee2e6;
+}
+
+.book-image-fixed-size {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    max-height: 360px;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 15px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .book-description-container {
+        padding: 20px;
+    }
+
+    .description-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .description-meta {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .book-details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .detail-label {
+        min-width: auto;
+    }
+
+    .book-image-wrapper {
+        height: 300px;
+        padding: 15px;
+    }
+
+    .book-image-fixed-size {
+        max-height: 280px;
+    }
+}
+
+@media (max-width: 576px) {
+    .book-description-container {
+        padding: 15px;
+    }
+
+    .description-title {
+        font-size: 1.2rem;
+    }
+
+    .book-image-wrapper {
+        height: 250px;
+        padding: 10px;
+    }
+
+    .book-image-fixed-size {
+        max-height: 230px;
+    }
+}
+
+/* Стили для страницы деталей книги */
+.book-details-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.book-main-row {
+    margin-bottom: 40px;
+}
+
+/* Фиксированный контейнер для картинки */
+.book-image-card {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-image-wrapper-fixed {
+    width: 100%;
+    height: 500px;
+    padding: 20px;
+    background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+    border-radius: 12px;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Фиксированный размер картинки с обрезкой */
+.book-cover-fixed {
+    width: 100%; /* Заполняем весь контейнер по ширине */
+    height: 100%; /* Заполняем весь контейнер по высоте */
+    object-fit: cover; /* Обрезаем по краям для сохранения пропорций */
+    object-position: center; /* Центрируем картинку */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+/* Картинка не двигается при наведении */
+.book-cover-fixed:hover {
+    transform: none;
+}
+
+.book-info-card {
+    height: 100%;
+}
+
+/* БОЛЬШОЙ ЗАГОЛОВОК КНИГИ */
+.book-title-main {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #2c3e50;
+    line-height: 1.2;
+    margin-bottom: 0.8rem;
+}
+
+.book-author {
+    font-size: 1.5rem;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+}
+
+.section-heading {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    font-weight: 600;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.book-description {
+    background: #f8f9fa;
+    border-left: 4px solid #3498db;
+    line-height: 1.7;
+    font-size: 1.05rem;
+    color: #5a6c7d;
+}
+
+.detail-card {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    height: 100%;
+}
+
+.detail-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    border-color: #3498db;
+}
+
+.detail-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+}
+
+.price-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.price-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+}
+
+.price-card-digital {
+    border-top: 4px solid #28a745;
+}
+
+.price-card-printed {
+    border-top: 4px solid #007bff;
+}
+
+.action-buttons-container {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+.btn-action {
+    padding: 10px 25px;
+    font-size: 1rem;
+    border-radius: 8px;
+    margin: 0 5px;
+}
+
+@media (max-width: 992px) {
+    .book-title-main {
+        font-size: 2.3rem;
+    }
+
+    .book-author {
+        font-size: 1.3rem;
+    }
+
+    .book-image-wrapper-fixed {
+        height: 450px;
+    }
+}
+
+@media (max-width: 768px) {
+    .book-title-main {
+        font-size: 2rem;
+    }
+
+    .book-author {
+        font-size: 1.2rem;
+    }
+
+    .book-image-wrapper-fixed {
+        height: 400px;
+    }
+
+    .btn-action {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .book-title-main {
+        font-size: 1.8rem;
+    }
+
+    .book-image-wrapper-fixed {
+        height: 350px;
+    }
+}
