@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление книгами - КликБук</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Основные стили для таблицы */
+        .table-container {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            background: white;
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .table-header h5 {
+            margin: 0;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Стили для таблицы */
+        .books-table {
+            margin: 0;
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .books-table thead th {
+            background-color: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+            border-bottom: 2px solid #dee2e6;
+            padding: 12px 16px;
+            font-weight: 600;
+            color: #495057;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            vertical-align: middle;
+        }
+
+        .books-table tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: middle;
+            transition: background-color 0.2s ease;
+        }
+
+        .books-table tbody tr:hover td {
+            background-color: #f8f9fa;
+        }
+
+        .books-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Стили для ячеек */
+        .book-cover-cell {
+            width: 70px;
+            padding: 8px !important;
+        }
+
+        .book-cover-admin {
+            width: 60px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .book-title-cell {
+            min-width: 180px;
+            max-width: 250px;
+        }
+
+        .book-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            line-height: 1.3;
+            margin-bottom: 2px;
+            color: #212529;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-height: 2.6em;
+        }
+
+        .book-author {
+            font-size: 0.8rem;
+            color: #6c757d;
+            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .price-cell {
+            width: 100px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .price-digital {
+            color: #28a745;
+            font-size: 0.9rem;
+        }
+
+        .price-printed {
+            color: #007bff;
+            font-size: 0.9rem;
+        }
+
+        .category-cell {
+            width: 140px;
+        }
+
+        .category-badge {
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            background-color: #17a2b8;
+            color: white;
+            display: inline-block;
+            margin-bottom: 4px;
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .genre-text {
+            font-size: 0.8rem;
+            color: #6c757d;
+            line-height: 1.2;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .age-cell {
+            width: 80px;
+            text-align: center;
+        }
+
+        .age-badge {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            display: inline-block;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .age-0 { background-color: #28a745; color: white; }
+        .age-6 { background-color: #17a2b8; color: white; }
+        .age-12 { background-color: #ffc107; color: black; }
+        .age-14 { background-color: #fd7e14; color: white; }
+        .age-16 { background-color: #dc3545; color: white; }
+        .age-18 { background-color: #343a40; color: white; }
+        .age-default { background-color: #6c757d; color: white; }
+
+        .action-cell {
+            width: 120px;
+            text-align: center;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            border: 1px solid #dee2e6;
+            background: white;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .action-btn-view {
+            color: #007bff;
+            border-color: #007bff;
+        }
+
+        .action-btn-view:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .action-btn-edit {
+            color: #ffc107;
+            border-color: #ffc107;
+        }
+
+        .action-btn-edit:hover {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .action-btn-delete {
+            color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .action-btn-delete:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .action-btn i {
+            font-size: 0.85rem;
+        }
+
+        /* Дополнительные стили */
+        .book-meta {
+            font-size: 0.75rem;
+            color: #6c757d;
+            margin-top: 2px;
+        }
+
+        .rating-star {
+            color: #ffc107;
+            font-size: 0.8rem;
+            margin-left: 2px;
+        }
+
+        .isbn-badge {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        /* Пустая таблица */
+        .empty-table {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+
+        .empty-table i {
+            font-size: 3rem;
+            color: #adb5bd;
+            margin-bottom: 16px;
+        }
+
+        .empty-table h5 {
+            color: #6c757d;
+            margin-bottom: 8px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1200px) {
+            .book-title-cell {
+                max-width: 200px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .table-responsive {
+                border: 1px solid #dee2e6;
+                border-radius: 6px;
+            }
+
+            .books-table {
+                min-width: 900px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Навигация -->
+<div th:replace="~{fragments/navigation :: navigation(user=${user}, cartItemCount=${cartItemCount})}"></div>
+
+<div class="container-fluid px-4 py-4">
+    <!-- Заголовок и кнопки -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="mb-0"><i class="fas fa-book me-2"></i> Управление книгами</h1>
+            <p class="text-muted mb-0">Добавление, редактирование и удаление книг в каталоге</p>
+        </div>
+
+        <!-- Кнопки -->
+        <div>
+            <a th:href="@{/admin/books/new}" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i> Добавить книгу
+            </a>
+            <a th:href="@{/admin/dashboard}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-1"></i> Назад в панель
+            </a>
+        </div>
+    </div>
+
+    <!-- Уведомления -->
+    <div th:if="${success}" class="alert alert-success alert-dismissible fade show">
+        <i class="fas fa-check-circle me-2"></i>
+        <span th:text="${success}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show">
+        <i class="fas fa-exclamation-circle me-2"></i>
+        <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <!-- Быстрая статистика -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm">
+                <div class="card-body py-3">
+                    <h3 class="mb-0" th:text="${books != null ? books.size() : 0}">0</h3>
+                    <small class="text-muted">Всего книг</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center border-0 shadow-sm">
+                <div class="card-body py-3">
+                    <h3 class="mb-0" th:text="${categories != null ? categories.size() : 0}">0</h3>
+                    <small class="text-muted">Категорий</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Таблица книг -->
+    <div class="table-container">
+        <div class="table-header">
+            <h5><i class="fas fa-list"></i> Список книг</h5>
+        </div>
+
+        <div class="table-responsive">
+            <table class="books-table">
+                <thead>
+                <tr>
+                    <th width="30" class="text-center">ID</th>
+                    <th width="60" class="text-center">Обложка</th>
+                    <th width="200" class="text-center">Название</th>
+                    <th width="120" class="text-center">Автор</th>
+                    <th width="80" class="text-center">Эл. версия</th>
+                    <th width="80" class="text-center">Печатная</th>
+                    <th width="200" class="text-center">Категория</th>
+                    <th width="80" class="text-center">Жанр</th>
+                    <th width="40" class="text-center">Стр.</th>
+                    <th width="40" class="text-center">Возраст</th>
+                    <th width="90" class="text-center">Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book : ${books}">
+                    <!-- ID -->
+                    <td class="text-center border-end">
+                        <span class="badge bg-secondary">[[${book.id}]]</span>
+                    </td>
+
+                    <!-- Обложка -->
+                    <td class="text-center border-end">
+                        <img th:src="${book.imageUrl ?: '/static/images/books/default.jpg'}"
+                             class="book-cover-admin"
+                             onerror="this.src='/static/images/books/default.jpg'"
+                             alt="Обложка">
+                    </td>
+
+                    <!-- Название книги -->
+                    <td class="border-end">
+                        <div class="book-title-full" th:text="${book.title}"></div>
+                    </td>
+
+                    <!-- Автор -->
+                    <td class="border-end">
+                        <div class="book-author-full" th:text="${book.author}"></div>
+                    </td>
+
+                    <!-- Цена электронной версии -->
+                    <td class="text-center border-end">
+                        <div class="price-digital"
+                             th:text="'₽' + ${#numbers.formatDecimal(book.priceDigital, 0, 0)}">
+                        </div>
+                    </td>
+
+                    <!-- Цена печатной версии -->
+                    <td class="text-center border-end">
+                        <div class="price-printed"
+                             th:text="'₽' + ${#numbers.formatDecimal(book.pricePrinted, 0, 0)}">
+                        </div>
+                    </td>
+
+                    <!-- Категория -->
+                    <td class="border-end">
+                        <div th:if="${book.category != null and book.category.name != null}">
+                            <span class="category-badge-full" th:text="${book.category.name}"></span>
+                        </div>
+                    </td>
+
+                    <!-- Жанр -->
+                    <td class="border-end">
+                        <div th:if="${book.genre}" class="genre-text-full" th:text="${book.genre}"></div>
+                        <div th:unless="${book.genre}" class="text-muted">-</div>
+                    </td>
+
+                    <!-- Страницы -->
+                    <td class="text-center border-end">
+                        <div th:if="${book.pages}" class="book-meta">
+                            [[${book.pages}]]
+                        </div>
+                        <div th:unless="${book.pages}" class="text-muted">-</div>
+                    </td>
+
+                    <!-- Возрастной рейтинг -->
+                    <td class="text-center border-end">
+                <span th:class="'age-badge ' + ${book.ageRating == '0+' ? 'age-0' :
+                    (book.ageRating == '6+' ? 'age-6' :
+                    (book.ageRating == '12+' ? 'age-12' :
+                    (book.ageRating == '14+' ? 'age-14' :
+                    (book.ageRating == '16+' ? 'age-16' :
+                    (book.ageRating == '18+' ? 'age-18' : 'age-default')))))}"
+                      th:text="${book.ageRating ?: '0+'}">
+                </span>
+                    </td>
+
+                    <!-- Действия -->
+                    <td class="text-center">
+                        <div class="action-buttons">
+                            <!-- Просмотр -->
+                            <a th:href="@{/store/book/{id}(id=${book.id})}"
+                               class="action-btn action-btn-view"
+                               title="Просмотреть">
+                                <i class="fas fa-eye"></i>
+                            </a>
+
+                            <!-- Редактировать -->
+                            <a th:href="@{/admin/books/{id}/edit(id=${book.id})}"
+                               class="action-btn action-btn-edit"
+                               title="Редактировать">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                            <!-- Удалить (простая ссылка с подтверждением) -->
+                            <a th:href="@{/admin/books/{id}/delete(id=${book.id})}"
+                               class="action-btn action-btn-delete"
+                               title="Удалить"
+                               onclick="return confirm('Удалить книгу?')">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- Пустая таблица -->
+                <tr th:if="${books != null and books.isEmpty()}">
+                    <td colspan="11" class="text-center">
+                        <div class="empty-table">
+                            <i class="fas fa-book-open"></i>
+                            <h5>Книги не найдены</h5>
+                            <p>Нажмите "Добавить книгу", чтобы создать первую</p>
+                            <a href="/admin/books/new" class="btn btn-primary btn-sm mt-2">
+                                <i class="fas fa-plus me-1"></i> Добавить книгу
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Футер -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- Скрипты -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/books-admin.js}"></script>
+</body>
+</html>

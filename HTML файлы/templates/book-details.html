@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${book.title + ' - КликБук'}">Книга - КликБук</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<!-- Навигация -->
+<div th:replace="fragments/navigation :: navigation(user=${user}, cartItemCount=${cartItemCount})"></div>
+
+<div class="container-fluid px-4 py-4">
+    <div class="book-details-container">
+        <div class="container py-4">
+            <!-- Основной ряд с картинкой и информацией -->
+            <div class="row book-main-row">
+                <!-- Изображение книги с ФИКСИРОВАННЫМ РАЗМЕРОМ -->
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-sm book-image-card">
+                        <div class="card-body p-4">
+                            <div class="book-image-wrapper-fixed">
+                                <img th:src="@{${book.imageUrl}}"
+                                     class="book-cover-fixed"
+                                     alt="Обложка: [[${book.title}]]"
+                                     onload="this.style.opacity = '1';"
+                                     onerror="console.error('❌ Ошибка загрузки:', this.src); this.src='/static/images/books/default.jpg';"
+                                     style="opacity: 0; transition: opacity 0.3s ease;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Основная информация РЯДОМ с картинкой -->
+                <div class="col-md-8">
+                    <div class="card border-0 shadow-sm book-info-card">
+                        <div class="card-body p-4">
+                            <!-- БОЛЬШОЙ ЗАГОЛОВОК КНИГИ -->
+                            <h1 class="book-title-main mb-2" th:text="${book.title}"></h1>
+                            <h3 class="book-author mb-4">
+                                <i class="fas fa-user-pen text-primary me-2"></i>
+                                <span th:text="${book.author}"></span>
+                            </h3>
+
+                            <!-- Описание книги -->
+                            <div class="mb-4">
+                                <h5 class="section-heading mb-3">
+                                    <i class="fas fa-align-left text-primary me-2"></i>
+                                    Описание
+                                </h5>
+                                <div class="book-description p-3 bg-light rounded">
+                                    <p class="mb-0" th:text="${book.description ?: 'Описание отсутствует'}"></p>
+                                </div>
+                            </div>
+
+                            <!-- Детали книги -->
+                            <div class="mb-4">
+                                <h5 class="section-heading mb-3">
+                                    <i class="fas fa-info-circle text-primary me-2"></i>
+                                    Детали книги
+                                </h5>
+                                <div class="row g-3">
+                                    <!-- Категория -->
+                                    <div class="col-md-6" th:if="${book.category != null and book.category.name != null}">
+                                        <div class="detail-card p-3 h-100">
+                                            <div class="d-flex align-items-center mb-2">
+                                                <div class="detail-icon bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                                                    <i class="fas fa-tag"></i>
+                                                </div>
+                                                <div>
+                                                    <small class="text-muted d-block">Категория</small>
+                                                    <h6 class="mb-0 fw-semibold" th:text="${book.category.name}"></h6>
+                                                </div>
+                                            </div>
+                                            <small class="text-muted d-block mt-2" th:if="${book.category.description}">
+                                                <i class="fas fa-info-circle me-1"></i>
+                                                [[${book.category.description}]]
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <!-- Жанр -->
+                                    <div class="col-md-6" th:if="${book.genre}">
+                                        <div class="detail-card p-3 h-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="detail-icon bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                                                    <i class="fas fa-film"></i>
+                                                </div>
+                                                <div>
+                                                    <small class="text-muted d-block">Жанр</small>
+                                                    <h6 class="mb-0 fw-semibold" th:text="${book.genre}"></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Возрастной рейтинг -->
+                                    <div class="col-md-6">
+                                        <div class="detail-card p-3 h-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="detail-icon bg-warning text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                                                    <i class="fas fa-user-check"></i>
+                                                </div>
+                                                <div>
+                                                    <small class="text-muted d-block">Возрастной рейтинг</small>
+                                                    <h6 class="mb-0 fw-semibold" th:text="${book.ageRating ?: '0+'}"></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Количество страниц -->
+                                    <div class="col-md-6" th:if="${book.pages}">
+                                        <div class="detail-card p-3 h-100">
+                                            <div class="d-flex align-items-center">
+                                                <div class="detail-icon bg-info text-white rounded-circle d-flex align-items-center justify-content-center me-3">
+                                                    <i class="fas fa-file-text"></i>
+                                                </div>
+                                                <div>
+                                                    <small class="text-muted d-block">Количество страниц</small>
+                                                    <h6 class="mb-0 fw-semibold" th:text="${book.pages + ' стр.'}"></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Выбор формата -->
+            <div class="row mb-5" th:if="${user != null}">
+                <div class="col-md-6 mb-3" th:if="${user.role != 'ROLE_ADMIN'}">
+                    <!-- Для обычных пользователей - кнопка "В корзину" -->
+                    <div class="card price-card price-card-digital h-100">
+                        <div class="card-body text-center py-4">
+                            <h5 class="text-success mb-3">
+                                <i class="fas fa-tablet-alt me-2"></i>Электронная книга
+                            </h5>
+                            <h2 class="text-success mb-3">
+                                <span th:text="'₽' + ${#numbers.formatDecimal(book.priceDigital, 0, 0)}"></span>
+                            </h2>
+                            <p class="text-muted mb-3">
+                                <small>
+                                    <i class="fas fa-download me-1"></i>Мгновенная доставка<br>
+                                    <i class="fas fa-file-pdf me-1"></i>Формат PDF
+                                </small>
+                            </p>
+                            <!-- Кнопка для электронной версии -->
+                            <button class="btn btn-success btn-lg add-to-cart-btn"
+                                    th:attr="data-book-id=${book.id}"
+                                    data-book-type="DIGITAL"
+                                    style="padding: 10px 25px; min-width: 180px;">
+                                <i class="fas fa-cart-plus me-1"></i> В корзину
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Аналогично для печатной версии -->
+                <div class="col-md-6 mb-3" th:if="${user.role != 'ROLE_ADMIN'}">
+                    <div class="card price-card price-card-printed h-100">
+                        <div class="card-body text-center py-4">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-book me-2"></i>Печатная книга
+                            </h5>
+                            <h2 class="text-primary mb-3">
+                                <span th:text="'₽' + ${#numbers.formatDecimal(book.pricePrinted, 0, 0)}"></span>
+                            </h2>
+                            <p class="text-muted mb-3">
+                                <small>
+                                    <i class="fas fa-truck me-1"></i>Доставка от 1 до 14 дней<br>
+                                    <i class="fas fa-box me-1"></i>Твердый переплет
+                                </small>
+                            </p>
+                            <!-- Кнопка для печатной версии -->
+                            <button class="btn btn-primary btn-lg add-to-cart-btn"
+                                    th:attr="data-book-id=${book.id}"
+                                    data-book-type="PRINTED"
+                                    style="padding: 10px 25px; min-width: 180px;">
+                                <i class="fas fa-cart-plus me-1"></i> В корзину
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Кнопки действий -->
+            <div class="action-buttons-container">
+                <div class="d-flex flex-wrap gap-3 justify-content-center">
+                    <a th:href="@{/store/books}" class="btn btn-outline-secondary btn-action">
+                        <i class="fas fa-arrow-left me-2"></i> Вернуться в каталог
+                    </a>
+
+                    <!-- Дополнительная кнопка для админов -->
+                    <a th:if="${user != null and user.role == 'ROLE_ADMIN'}"
+                       th:href="@{/admin/books}"
+                       class="btn btn-warning btn-action">
+                        <i class="fas fa-list me-2"></i> Управление книгами
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Футер -->
+<div th:replace="fragments/footer :: footer"></div>
+
+<!-- Скрипты -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/book-details.js}"></script>
+</body>
+</html>

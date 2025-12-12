@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<body>
+<footer class="bg-dark text-white py-4 mt-5" th:fragment="footer">
+    <div class="container-fluid px-4">
+        <div class="row">
+            <div class="col-md-4">
+                <h5><i class="fas fa-book me-2"></i> КликБук</h5>
+                <p>Ваш надежный партнер в мире литературы. Лучшие книги всегда под рукой.</p>
+            </div>
+            <div class="col-md-4">
+                <h5>Контакты</h5>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-phone me-2"></i> +7 (900) 123-45-67</li>
+                    <li><i class="fas fa-envelope me-2"></i> info@clickbook.ru</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5>Помощь</h5>
+                <ul class="list-unstyled">
+                    <li><a th:href="@{/store/faq}" class="text-white text-decoration-none">
+                        <i class="fas fa-question-circle me-2"></i> Вопросы и ответы
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+        <hr class="my-4">
+        <div class="text-center">
+            <p class="mb-0">&copy; 2025 Книжный магазин КликБук</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

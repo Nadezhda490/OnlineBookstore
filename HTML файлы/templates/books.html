@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог книг - КликБук</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<!-- Навигация -->
+<div th:replace="fragments/navigation :: navigation(user=${user}, cartItemCount=${cartItemCount})"></div>
+
+<div class="container-fluid px-4 py-4">
+    <!-- Заголовок и поиск -->
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-6">
+            <h1 class="mb-2">
+                <i class="fas fa-book-open text-primary"></i>
+                <span th:text="${searchTitle != null ? searchTitle : 'Каталог книг'}"></span>
+            </h1>
+            <p class="text-muted">
+            <span th:if="${searchQuery != null and !searchQuery.isEmpty()}">
+                По запросу "<span th:text="${searchQuery}" class="fw-bold"></span>"
+            </span>
+                Найдено книг: <span th:text="${books != null ? books.size() : 0}">0</span>
+            </p>
+
+            <!-- КНОПКИ ДЛЯ АДМИНИСТРАТОРОВ -->
+            <div th:if="${user != null and user.role == 'ROLE_ADMIN'}" class="btn-group mt-2">
+                <a th:href="@{/admin/books}" class="btn btn-warning btn-sm me-2">
+                    <i class="fas fa-edit me-1"></i> Управление книгами
+                </a>
+                <a th:href="@{/admin/books/new}" class="btn btn-success btn-sm">
+                    <i class="fas fa-plus me-1"></i> Добавить книгу
+                </a>
+                <div>
+                    <a th:href="@{/admin/dashboard}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-1"></i> Назад в панель
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <!-- Форма поиска -->
+            <form th:action="@{/books/search}" method="get" class="search-form">
+                <div class="input-group search-group">
+                    <input type="text"
+                           class="form-control form-control-lg search-input"
+                           name="query"
+                            placeholder="Поиск по названию, автору, жанру..."
+                            th:value="${searchQuery}"
+                            aria-label="Поиск книг"
+                            aria-describedby="search-button">
+                            <button class="btn btn-primary btn-lg search-button"
+                            type="submit"
+                            id="search-button">
+                        <i class="fas fa-search"></i>
+                        <span class="d-none d-md-inline"> Найти</span>
+                    </button>
+                    <a th:href="@{/store/books}"
+                       class="btn btn-outline-secondary btn-lg"
+                       th:if="${searchQuery != null and !searchQuery.isEmpty()}">
+                        <i class="fas fa-times"></i>
+                        <span class="d-none d-md-inline"> Сбросить</span>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Сообщение, если ничего не найдено -->
+    <div th:if="${searchQuery != null and !searchQuery.isEmpty() and (books == null or books.empty)}"
+         class="text-center py-5">
+        <div class="alert alert-warning">
+            <h4 class="alert-heading">
+                <i class="fas fa-search me-2"></i> По запросу ничего не найдено
+            </h4>
+            <p class="mb-3">По запросу "<span th:text="${searchQuery}" class="fw-bold"></span>" ничего не найдено.</p>
+            <p>Попробуйте изменить поисковый запрос:</p>
+            <ul class="list-unstyled">
+                <li>✓ Используйте другие ключевые слова</li>
+                <li>✓ Проверьте правильность написания</li>
+                <li>✓ Ищите по автору или жанру</li>
+            </ul>
+            <hr>
+            <a th:href="@{/books}" class="btn btn-primary">
+                <i class="fas fa-book me-1"></i> Показать все книги
+            </a>
+        </div>
+    </div>
+    <!-- Сетка книг -->
+    <div class="grid-container" id="booksContainer">
+        <div th:each="book : ${books}" class="grid-item">
+            <div class="card h-100 shadow-sm book-card-fixed">
+
+                <!-- ИЗОБРАЖЕНИЕ КНИГИ -->
+                <div class="image-container">
+                    <!-- ДИАГНОСТИКА -->
+                    <div style="position: absolute; top: 5px; left: 5px; background: rgba(0,0,0,0.7); color: white; padding: 2px 5px; font-size: 9px; border-radius: 3px; z-index: 10;">
+                        ID: [[${book.id}]]
+                    </div>
+
+                    <!-- ОСНОВНОЕ ИЗОБРАЖЕНИЕ -->
+                    <img th:src="@{${book.imageUrl}}"
+                         alt="Обложка: [[${book.title}]]"
+                         class="book-cover"
+                         style="width: 100%; height: 100%; object-fit: cover;"
+                         onload="console.log('✅ Книга [[${book.id}]] загружена')"
+                         onerror="console.error('❌ Ошибка книги [[${book.id}]]:', this.src); this.src='/static/images/books/default.jpg'">
+                </div>
+
+                <!-- Тело карточки -->
+                <div class="card-body">
+                    <!-- Заголовок и автор -->
+                    <h6 class="book-title" th:text="${book.title}"></h6>
+                    <p class="book-author text-muted" th:text="${book.author}"></p>
+
+                    <!-- Категория -->
+                    <div class="mb-2">
+                        <small th:if="${book.category != null and book.category.name != null}"
+                               class="badge bg-info text-white"
+                               th:text="${book.category.name}"></small>
+                    </div>
+
+                    <!-- Цена и кнопки -->
+                    <div class="mt-auto">
+
+                        <!-- Разные кнопки для админов и пользователей -->
+                        <div class="d-grid gap-2">
+                            <!-- Кнопка Подробнее для всех -->
+                            <a th:href="@{/store/book/{id}(id=${book.id})}"
+                               class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-info-circle me-1"></i> Подробнее
+                            </a>
+
+                            <!-- Кнопка В корзину только для пользователей -->
+                            <button th:if="${user != null and user.role != 'ROLE_ADMIN'}"
+                                    class="btn btn-success btn-sm add-to-cart-btn"
+                                    th:attr="data-book-id=${book.id}"
+                                    onclick="addToCart([[${book.id}]], 'DIGITAL', this)">
+                                <i class="fas fa-cart-plus me-1"></i> В корзину
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Сообщение, если ничего не найдено -->
+    <div th:if="${param.search != null and param.search != '' and (books == null or books.empty)}" class="text-center py-5">
+        <div class="alert alert-warning">
+            <h4 class="alert-heading">
+                <i class="fas fa-search me-2"></i> По запросу ничего не найдено
+            </h4>
+            <p class="mb-3">По запросу "<span th:text="${param.search}" class="fw-bold"></span>" ничего не найдено.</p>
+            <p>Попробуйте изменить поисковый запрос:</p>
+            <ul class="list-unstyled">
+                <li>✓ Используйте другие ключевые слова</li>
+                <li>✓ Проверьте правильность написания</li>
+                <li>✓ Ищите по автору или жанру</li>
+            </ul>
+            <hr>
+            <a th:href="@{/store/books}" class="btn btn-primary">
+                <i class="fas fa-book me-1"></i> Показать все книги
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Футер -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- Скрипты -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/books.js}"></script>
+</body>
+</html>

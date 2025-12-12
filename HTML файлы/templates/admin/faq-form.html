@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${faq.id != null} ? 'Редактировать вопрос - КликБук' : 'Добавить вопрос - КликБук'"></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<!-- Навигация -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">
+            <i class="fas fa-book me-2"></i><strong>КликБук</strong>
+        </a>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/faq}">
+                        <i class="fas fa-arrow-left me-1"></i> Назад к списку
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">
+                        <i class="fas fa-sign-out-alt me-1"></i> Выйти
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid px-4 py-4">
+    <!-- Хлебные крошки -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/}">Главная</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Панель управления</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/admin/faq}">Управление FAQ</a></li>
+            <li class="breadcrumb-item active" th:text="${faq.id != null} ? 'Редактирование' : 'Добавление'"></li>
+        </ol>
+    </nav>
+
+    <!-- Заголовок -->
+    <h1 class="mb-4">
+        <i class="fas" th:class="${faq.id != null} ? 'fa-edit' : 'fa-plus'"></i>
+        <span th:text="${faq.id != null} ? 'Редактирование вопроса' : 'Добавление нового вопроса'"></span>
+    </h1>
+
+    <!-- Уведомления -->
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show mb-4">
+        <i class="fas fa-exclamation-circle me-2"></i>
+        <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <!-- Форма -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="faq-form-card">
+                <div class="faq-form-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-question-circle me-2"></i>
+                        <span th:text="${faq.id != null} ? 'Редактирование вопроса #' + ${faq.id} : 'Новый вопрос FAQ'"></span>
+                    </h5>
+                </div>
+
+                <div class="faq-form-body">
+                    <form th:action="${faq.id != null} ? @{/admin/faq/update} : @{/admin/faq/save}"
+                          method="post"
+                          th:object="${faq}">
+
+                        <input type="hidden" th:field="*{id}" th:if="${faq.id != null}" />
+
+                        <!-- Вопрос -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-question me-1"></i> Вопрос *
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="*{question}"
+                                   placeholder="Введите вопрос (например: Как сделать заказ?)"
+                                   required
+                                   oninput="updateCharacterCount('question', this.value, 500)">
+                            <div class="character-count" id="question-count">
+                                <span id="question-chars">0</span>/500 символов
+                            </div>
+                        </div>
+
+                        <!-- Ответ -->
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-comment-alt me-1"></i> Ответ *
+                            </label>
+                            <textarea class="form-control"
+                                      th:field="*{answer}"
+                                      rows="8"
+                                      placeholder="Введите подробный ответ на вопрос"
+                                      required
+                                      oninput="updateCharacterCount('answer', this.value, 2000)"
+                                      style="resize: vertical;"></textarea>
+                            <div class="character-count" id="answer-count">
+                                <span id="answer-chars">0</span>/2000 символов
+                            </div>
+                        </div>
+
+                        <!-- Категория и порядок -->
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-tag me-1"></i> Категория *
+                                </label>
+                                <select class="form-select" th:field="*{category}" required>
+                                    <option value="">Выберите категорию</option>
+                                    <option th:each="cat : ${categories}"
+                                            th:value="${cat}"
+                                            th:text="${cat}"
+                                            th:selected="${faq.category == cat}">
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-sort-numeric-down me-1"></i> Порядок отображения
+                                </label>
+                                <input type="number"
+                                       class="form-control"
+                                       th:field="*{displayOrder}"
+                                       min="0"
+                                       max="100"
+                                       placeholder="0">
+                                <small class="text-muted">Чем меньше число, тем выше в списке</small>
+                            </div>
+                        </div>
+
+                        <!-- Кнопки -->
+                        <div class="d-flex justify-content-between mt-4 pt-3 border-top">
+                            <div>
+                                <a th:href="@{/admin/faq}" class="btn btn-secondary">
+                                    <i class="fas fa-arrow-left me-1"></i> Отмена
+                                </a>
+                            </div>
+
+                            <div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-1"></i>
+                                    <span th:text="${faq.id != null} ? 'Сохранить изменения' : 'Добавить вопрос'"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Подсказки -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h6><i class="fas fa-lightbulb me-2"></i> Советы по созданию хороших FAQ:</h6>
+                    <ul class="mb-0">
+                        <li>Формулируйте вопрос так, как его задают пользователи</li>
+                        <li>Давайте полные, но лаконичные ответы</li>
+                        <li>Используйте простой и понятный язык</li>
+                        <li>Разбивайте длинные ответы на абзацы</li>
+                        <li>Указывайте конкретные сроки, если они есть</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Футер -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- Скрипты -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/faq-admin.js}"></script>
+</body>
+</html>

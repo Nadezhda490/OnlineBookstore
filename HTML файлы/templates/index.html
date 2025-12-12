@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>КликБук - Главная</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<!-- Основное содержимое -->
+<div class="container-fluid px-4 py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+
+            <!-- Приветствие -->
+            <div class="welcome-banner-purple p-5 rounded mb-5">
+                <h1 class="display-4 mb-4">Добро пожаловать в КликБук! 📚</h1>
+                <p class="lead mb-4">Ваш книжный магазин нового поколения</p>
+            </div>
+
+            <!-- Кнопки действий -->
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="mb-3">
+                                <i class="fas fa-user-plus fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title">Новый пользователь?</h5>
+                            <p class="card-text">Создайте аккаунт для доступа ко всем возможностям магазина</p>
+                            <a href="/register" class="btn btn-primary w-100">
+                                <i class="fas fa-user-plus me-2"></i> Зарегистрироваться
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="mb-3">
+                                <i class="fas fa-sign-in-alt fa-3x text-success"></i>
+                            </div>
+                            <h5 class="card-title">Уже есть аккаунт?</h5>
+                            <p class="card-text">Войдите в систему для продолжения покупок</p>
+                            <a href="/login" class="btn btn-success w-100">
+                                <i class="fas fa-sign-in-alt me-2"></i> Войти в систему
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оплата - КликБук</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<!-- Главный контейнер для прижатия футера -->
+<div class="d-flex flex-column min-vh-100">
+    <!-- Навигация -->
+    <div th:replace="fragments/navigation :: navigation(user=${user}, cartItemCount=${cartItemCount})"></div>
+
+    <!-- Основной контент (будет растягиваться) -->
+    <main class="flex-grow-1">
+        <div class="container-fluid px-4 py-4">
+            <!-- Хлебные крошки -->
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a th:href="@{/}">Главная</a></li>
+                    <li class="breadcrumb-item"><a th:href="@{/cart}">Корзина</a></li>
+                    <li class="breadcrumb-item active">Оплата</li>
+                </ol>
+            </nav>
+
+            <h1 class="mb-4">💳 Оформление заказа</h1>
+
+            <!-- Сообщения об ошибках -->
+            <div th:if="${error}" class="alert alert-danger mb-4">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <span th:text="${error}"></span>
+            </div>
+
+            <!-- Форма оплаты -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4">Выбор города и способа доставки</h5>
+
+                            <form th:action="@{/payment/process}" method="post">
+                                <div class="mb-4">
+                                    <label class="form-label">Город доставки *</label>
+                                    <input type="text" class="form-control" name="deliveryCity"
+                                           placeholder="Например: Москва" required
+                                           th:value="${deliveryCity}">
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label">Способ доставки *</label>
+                                    <select class="form-select" name="deliveryService" required>
+                                        <option value="">Выберите способ доставки</option>
+                                        <option th:each="service : ${deliveryServices}"
+                                                th:value="${service}"
+                                                th:text="${service}"
+                                                th:selected="${service == deliveryService}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-credit-card me-2"></i> Оплатить заказ
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Итоги -->
+                <div class="col-lg-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Итоги заказа</h5>
+
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Товары:</span>
+                                <span th:text="${cartItems.size()} + ' шт.'">0 шт.</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Стоимость товаров:</span>
+                                <span th:text="'₽' + ${#numbers.formatDecimal(cartTotal, 0, 0)}">₽0</span>
+                            </div>
+
+                            <hr>
+
+                            <div class="d-flex justify-content-between mb-4">
+                                <strong>Итого:</strong>
+                                <strong class="h5" th:text="'₽' + ${#numbers.formatDecimal(cartTotal, 0, 0)}">₽0</strong>
+                            </div>
+
+                            <!-- Информация о безопасности -->
+                            <div class="alert alert-light mt-3">
+                                <small class="text-muted">
+                                    <i class="fas fa-lock me-1"></i> Безопасная оплата<br>
+                                    <i class="fas fa-shield-alt me-1"></i> Данные защищены<br>
+                                    <i class="fas fa-undo me-1"></i> Возврат в течение 30 дней
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Футер -->
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
